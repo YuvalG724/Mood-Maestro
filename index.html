@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mood Maestro 🎵</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-950 text-white font-inter relative overflow-x-hidden">
+
+  <!-- 🌈 Animated Background -->
+  <div id="animated-bg" class="absolute inset-0 -z-10 overflow-hidden pointer-events-none"></div>
+
+  <!-- 🎵 App Content -->
+  <div class="min-h-screen flex flex-col items-center justify-start px-4 py-10">
+    <header class="text-center mb-12 animate-fade-in">
+      <h1 class="text-5xl sm:text-6xl font-extrabold text-purple-400 drop-shadow-lg">Mood Maestro</h1>
+      <p class="text-gray-300 mt-3 text-lg sm:text-xl">Let your mood lead the music 🎧</p>
+    </header>
+
+    <section class="w-full max-w-5xl bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-6 md:p-10 animate-slide-in-left">
+      <div class="flex flex-col md:flex-row items-center gap-4 mb-6">
+        <input id="moodInput" type="text" placeholder="e.g., Chill, Energetic, Angry..." class="flex-1 p-4 rounded-xl bg-gray-800 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg">
+        <button id="micButton" title="Speak Mood" class="p-4 rounded-xl bg-gray-700 hover:bg-purple-700 transition duration-300">🎤</button>
+        <button id="getPlaylistButton" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-bold hover:scale-105 transition-all duration-300">Get Vibes</button>
+      </div>
+
+      <p class="text-center text-sm text-gray-400 mb-4">Or pick a mood shortcut:</p>
+      <div id="moodOptions" class="flex flex-wrap justify-center gap-3 mb-10"></div>
+
+      <div id="playlist-output" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+  </div>
+
+  <!-- 💬 Chatbot Section -->
+  <section id="chatbot" class="fixed bottom-0 left-0 right-0 bg-white/10 backdrop-blur-xl border-t border-white/20 shadow-2xl p-4 z-50">
+    <div class="max-w-4xl mx-auto chatbot-box" id="chatbot-content">
+      <h3 class="text-purple-300 text-lg mb-2">Feeling something? I'm here if you want to talk 💬</h3>
+      <div class="flex gap-3">
+        <input type="text" id="chatMoodInput" class="flex-1 p-2 rounded-lg bg-gray-800 text-white border border-gray-700" placeholder="Type a feeling...">
+        <button onclick="startTherapyFromInput()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl">Talk</button>
+      </div>
+      <div id="chatbot-response" class="mt-4 text-sm text-gray-200"></div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

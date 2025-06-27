@@ -1,0 +1,6 @@
+deepface
+vosk
+pyaudio
+opencv-python
+numpy
+flask
