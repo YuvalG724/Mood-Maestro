@@ -1,7 +1,7 @@
 //API KEYS 
-const SPOTIFY_CLIENT_ID = "9ab400a6cedf472488a9c3ab60886d34";
-const SPOTIFY_CLIENT_SECRET = "895a76835eaf407890b2a7279f524253";
-const OPENAI_API_KEY = "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";
+const SPOTIFY_CLIENT_ID = "";
+const SPOTIFY_CLIENT_SECRET = "";
+const OPENAI_API_KEY = "";
 
 // DOM ELEMENTS 
 const moodInput = document.getElementById("moodInput");
