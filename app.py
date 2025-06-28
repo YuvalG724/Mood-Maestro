@@ -7,11 +7,6 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-@app.route('/detect-emotion', methods=['POST'])
-def detect():
-    emotion = detect_emotion()
-    return jsonify({"emotion": emotion})
-
 
 if __name__=="__main__":
     app.run(debug=True)

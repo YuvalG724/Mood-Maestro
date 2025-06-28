@@ -6,10 +6,10 @@ const SPOTIFY_CLIENT_ID = keys.SPOTIFY_CLIENT_ID;
 const SPOTIFY_CLIENT_SECRET = keys.SPOTIFY_CLIENT_SECRET;
 const OPENAI_API_KEY = keys.OPENAI_API_KEY;
 
-console.log(keys)
-
 // DOM ELEMENTS 
 const moodInput = document.getElementById("moodInput");
+const detectButton=document.getElementById("detectButton")
+const resultDiv=document.getElementById("result")
 const getPlaylistButton = document.getElementById("getPlaylistButton");
 const playlistOutput = document.getElementById("playlist-output");
 const moodOptionsDiv = document.getElementById("moodOptions");
@@ -47,6 +47,7 @@ function moodEmoji(mood) {
   };
   return emojis[mood] || "🎶";
 }
+
 function populateMoodOptions() {
   MOODS.forEach(mood => {
     const btn = document.createElement("span");
@@ -89,6 +90,11 @@ async function fetchPlaylists(mood, token) {
 //  DISPLAY PLAYLIST CARDS 
 async function fetchAndDisplayPlaylists(mood) {
   playlistOutput.innerHTML = `<p class="text-purple-300 text-center col-span-3">Fetching playlists...</p>`;
+  const res = await  fetch('/playlist',{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({mood})
+  })
   const token = await getSpotifyToken();
   const playlists = await fetchPlaylists(mood, token);
 
@@ -113,7 +119,24 @@ async function fetchAndDisplayPlaylists(mood) {
     playlistOutput.appendChild(div);
   });
 }
+//This is the part where backend comes in, see if it works
+detectButton.onclick = async () => {
+  resultDiv.innerHTML = "Listening... Please say 'hello'.";
 
+  try {
+    const res = await fetch("/detect-emotion", { method: "POST" });
+    const data = await res.json();
+    const emotion = data.emotion === "neutral" ? "calm" : data.emotion;
+
+    resultDiv.innerHTML = `🎭 Detected Emotion: <strong>${emotion}</strong>`;
+    moodInput.value = emotion;
+    fetchAndDisplayPlaylists(emotion);
+
+  } catch (err) {
+    resultDiv.innerHTML = `<span class="text-red-400">Error detecting emotion.</span>`;
+    console.error(err);
+  }
+};
 //  ON BUTTON CLICK 
 getPlaylistButton.onclick = () => {
   const mood = moodInput.value.trim().toLowerCase();
